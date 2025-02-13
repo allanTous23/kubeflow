@@ -15,7 +15,7 @@ pipeline {
         stage('Build Docker Clean-Data') {
             steps {
                 script {
-                    sh 'docker build -t $CLEAN_IMAGE .'
+                    bat 'docker build -t %CLEAN_IMAGE% .'
                 }
             }
         }
