@@ -1,43 +1,46 @@
 pipeline {
     agent any
+
     environment {
-        DOCKER_IMAGE = 'votre-image-docker' // Nom de l'image Docker
-        REPO_URL = 'https://github.com/votre-utilisateur/votre-repo.git'
+        CLEAN_IMAGE = 'clean-data:latest'
     }
+
     stages {
-        stage('Cloner le code') {
+        stage('Cloner le repo') {
             steps {
-                git branch: 'main', url: "${REPO_URL}"
+                bat 'git clone https://github.com/allanTous23/kubeflow.git'
             }
         }
-        stage('Télécharger les données') {
+        
+        stage('Build Docker Clean-Data') {
             steps {
                 script {
-                    sh 'python scripts/download_data.py'
+                    sh 'docker build -t $CLEAN_IMAGE .'
                 }
             }
         }
-        stage('Nettoyage des données') {
+
+        stage('Nettoyer les données') {
             steps {
                 script {
-                    sh 'docker-compose run --rm data-cleaning' // Nettoyage des données dans un conteneur Docker
+                    bat 'docker run --rm clean-data:latest'
                 }
             }
         }
-        stage('Entraînement du modèle') {
+
+        stage('Sauvegarder les artefacts') {
             steps {
-                script {
-                    sh 'python scripts/train_model.py' // Script pour entraîner le modèle
-                }
+                archiveArtifacts artifacts: 'models/*.pkl', fingerprint: true
             }
         }
-        stage('Stocker les artefacts') {
-            steps {
-                script {
-                    sh 'docker cp model:/app/output/model.pkl ./models' // Stocke le modèle dans le répertoire de modèles
-                    sh 'docker cp model:/app/output/logs ./logs' // Stocke les logs d'entraînement
-                }
-            }
+    }
+
+    post {
+        success {
+            echo "Pipeline terminé avec succès"
+        }
+        failure {
+            echo "Échec du pipeline"
         }
     }
 }
