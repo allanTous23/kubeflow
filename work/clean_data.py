@@ -575,7 +575,7 @@ def train_ann(X_train, y_train, X_test, y_test):
     model = create_ann_model(X_train.shape[1])
     
     # Entraînement du modèle
-    model.fit(X_train, y_train, epochs=200, batch_size=50, validation_data=(X_test, y_test), verbose=1)
+    model.fit(X_train, y_train, epochs=50, batch_size=10, validation_data=(X_test, y_test), verbose=1)
     
     # Prédictions sur l'ensemble de test
     y_pred = model.predict(X_test)
