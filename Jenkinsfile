@@ -33,13 +33,14 @@ pipeline {
                 archiveArtifacts artifacts: 'work/models/*.pkl', fingerprint: true
             }
         }
-    }
 
         stage('Démarrer les services') {
-        steps {
-            bat 'docker-compose up -d'
+            steps {
+                bat 'docker-compose up -d'
+            }
         }
     }
+
     post {
         success {
             echo "Pipeline terminé avec succès"

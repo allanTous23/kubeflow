@@ -9,14 +9,35 @@
 # 
 # 3. Identifiez les types de variables présentes dans les datasets.
 
-# In[1]:
+# In[ ]:
 
 
 import pandas as pd
+import os
 
-# Charger les datasets
-train_df = pd.read_csv("work/datasets/train.csv")  # Remplace par le chemin de ton fichier
-test_df = pd.read_csv("work/datasets/test.csv")    # Remplace par le chemin de ton fichier
+def load_csv(paths):
+    """Essaie de charger un fichier CSV à partir d'une liste de chemins."""
+    for path in paths:
+        if os.path.exists(path):
+            try:
+                return pd.read_csv(path)
+            except pd.errors.EmptyDataError:
+                print(f"Erreur : Le fichier {path} est vide.")
+            except pd.errors.ParserError:
+                print(f"Erreur : Le fichier {path} est mal formaté.")
+    print(f"Erreur : Aucun fichier trouvé dans {paths}.")
+    return None
+
+# Définir les chemins possibles
+train_paths = ["work/datasets/train.csv", "datasets/train.csv"]
+test_paths = ["work/datasets/test.csv", "datasets/test.csv"]
+
+train_df = load_csv(train_paths)
+test_df = load_csv(test_paths)
+
+
+# In[1]:
+
 
 # 1. Afficher les cinq premières lignes
 print("Train dataset (5 premières lignes) :")
@@ -39,13 +60,13 @@ print(train_df.dtypes)
 
 # Si tes datasets sont volumineux, tu peux aussi utiliser .info() pour un aperçu plus rapide :
 
-# In[2]:
+# In[ ]:
 
 
 train_df.info()
 
 
-# In[3]:
+# In[ ]:
 
 
 # test_df.info()
@@ -53,7 +74,7 @@ train_df.info()
 
 # 1. Identifier les valeurs manquantes et calculer leur pourcentage
 
-# In[4]:
+# In[ ]:
 
 
 # Identifier les valeurs manquantes et calculer leur pourcentage
@@ -157,7 +178,7 @@ for col in bsmt_columns:
 train_df['MasVnrArea'].fillna(0, inplace=True)
 
 
-# In[7]:
+# In[ ]:
 
 
 # Afficher les statistiques descriptives après le traitement
@@ -165,7 +186,7 @@ train_df['MasVnrArea'].fillna(0, inplace=True)
 train_df.info()
 
 
-# In[8]:
+# In[ ]:
 
 
 import pandas as pd
@@ -177,7 +198,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
 
-# In[9]:
+# In[ ]:
 
 
 def analyze_numerical_correlations(df):
@@ -207,7 +228,7 @@ def analyze_numerical_correlations(df):
     
 
 
-# In[10]:
+# In[ ]:
 
 
 def analyze_categorical_correlations(df):
@@ -238,7 +259,7 @@ def analyze_categorical_correlations(df):
     return chi2_results
 
 
-# In[11]:
+# In[ ]:
 
 
 def apply_pca(df):
@@ -269,7 +290,7 @@ def apply_pca(df):
     }
 
 
-# In[12]:
+# In[ ]:
 
 
 # Fonction principale
@@ -299,7 +320,7 @@ def main(df):
     }
 
 
-# In[13]:
+# In[ ]:
 
 
 def plot_results(results):
@@ -323,7 +344,7 @@ def plot_results(results):
     return fig
 
 
-# In[14]:
+# In[ ]:
 
 
 resultats = main(train_df)
@@ -364,13 +385,13 @@ plt.show()
 
 # 
 
-# In[15]:
+# In[ ]:
 
 
-get_ipython().system('pip install imbalanced-learn')
+# !pip install imbalanced-learn
 
 
-# In[16]:
+# In[ ]:
 
 
 import pandas as pd
@@ -381,7 +402,7 @@ from sklearn.preprocessing import LabelEncoder
 from imblearn.over_sampling import SMOTE
 
 
-# In[17]:
+# In[ ]:
 
 
 def analyser_distribution(y, title="Distribution des prix"):
@@ -515,7 +536,7 @@ def main(df):
     }
 
 
-# In[22]:
+# In[ ]:
 
 
 # Exécuter l'analyse
@@ -530,13 +551,13 @@ plt.show()
 # Partie 4 : Modélisation et Évaluation
 # 
 
-# In[18]:
+# In[ ]:
 
 
-get_ipython().system('pip install tensorflow scikit-learn')
+# !pip install tensorflow scikit-learn
 
 
-# In[19]:
+# In[ ]:
 
 
 import tensorflow as tf
@@ -575,7 +596,7 @@ def train_ann(X_train, y_train, X_test, y_test):
     model = create_ann_model(X_train.shape[1])
     
     # Entraînement du modèle
-    model.fit(X_train, y_train, epochs=50, batch_size=10, validation_data=(X_test, y_test), verbose=1)
+    model.fit(X_train, y_train, epochs=200, batch_size=50, validation_data=(X_test, y_test), verbose=1)
     
     # Prédictions sur l'ensemble de test
     y_pred = model.predict(X_test)
@@ -611,6 +632,31 @@ model_after_smote = train_ann(X_train_resampled, y_train_resampled, X_test_resam
 
 # In[ ]:
 
+
+import joblib
+import os
+
+if not os.path.exists('models'):
+    os.makedirs('models')
+
+joblib.dump(model_before_smote, "models/house_price_model.pkl")
+
+print("🎉 Modèle entraîné et sauvegardé !")
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
 
 
 
