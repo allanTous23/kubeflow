@@ -16,6 +16,10 @@ DB_CONFIG = {
 # URL du service modèle
 MODEL_URL = os.getenv("MODEL_URL", "http://model:5001/predict")
 
+@app.route('/', methods=["GET"])
+def hello():
+    return {"welcome": "hello world every one"}
+
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.get_json()
