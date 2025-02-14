@@ -30,7 +30,7 @@ pipeline {
 
         stage('Sauvegarder les artefacts') {
             steps {
-                archiveArtifacts artifacts: '*.pkl', fingerprint: true
+                archiveArtifacts artifacts: '/*.pkl', fingerprint: true
             }
         }
 
