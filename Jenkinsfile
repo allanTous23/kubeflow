@@ -5,12 +5,12 @@ pipeline {
         CLEAN_IMAGE = 'clean-data:latest'
     }
 
-    stages {
-        stage('Cloner le repo') {
-            steps {
-                bat 'git clone https://github.com/allanTous23/kubeflow.git'
-            }
-        }
+    // stages {
+    //     stage('Cloner le repo') {
+    //         steps {
+    //             bat 'git clone https://github.com/allanTous23/kubeflow.git'
+    //         }
+    //     }
         
         stage('Build Docker Clean-Data') {
             steps {
