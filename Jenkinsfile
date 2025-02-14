@@ -6,11 +6,11 @@ pipeline {
     }
 
     stages {
-        stage('Cloner le repo') {
-            steps {
-                bat 'git clone https://github.com/allanTous23/kubeflow.git'
-            }
-        }
+        // stage('Cloner le repo') {
+        //     steps {
+        //         bat 'git clone https://github.com/allanTous23/kubeflow.git'
+        //     }
+        // }
         
         stage('Build Docker Clean-Data') {
             steps {
@@ -30,7 +30,7 @@ pipeline {
 
         stage('Sauvegarder les artefacts') {
             steps {
-                archiveArtifacts artifacts: 'kubeflow/work/models/*.pkl', fingerprint: true
+                archiveArtifacts artifacts: 'work/models/*.pkl', fingerprint: true
             }
         }
 
