@@ -5,7 +5,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Charger le modèle
-with open("work/models/house_price_model.pkl", "rb") as f:
+with open("models", "rb") as f:
     model = pickle.load(f)
 
 @app.route("/predict", methods=["POST"])
