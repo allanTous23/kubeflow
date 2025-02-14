@@ -6,6 +6,7 @@ pipeline {
     }
 
     stages {
+        
         stage('creation repertoire travail') {
             steps {
              bat 'if not exist model_artifacts mkdir model_artifacts'
