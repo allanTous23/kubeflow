@@ -30,15 +30,15 @@ pipeline {
 
         stage('Sauvegarder les artefacts') {
             steps {
-                archiveArtifacts artifacts: 'kubeflow/work/models/*.pkl', fingerprint: true
+                archiveArtifacts artifacts: '*.pkl', fingerprint: true
             }
         }
 
-        stage('Démarrer les services') {
-            steps {
-                bat 'docker-compose up -d'
-            }
-        }
+        // stage('Démarrer les services') {
+        //     steps {
+        //         bat 'docker-compose up -d'
+        //     }
+        // }
     }
 
     post {
