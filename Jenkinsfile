@@ -6,11 +6,12 @@ pipeline {
     }
 
     stages {
-        // stage('Cloner le repo') {
-        //     steps {
-        //         bat 'git clone https://github.com/allanTous23/kubeflow.git'
-        //     }
-        // }
+        stage('creation repertoire travail') {
+            steps {
+             bat 'if not exist model_artifacts mkdir model_artifacts'
+
+            }
+        }
         
         stage('Build Docker Clean-Data') {
             steps {
