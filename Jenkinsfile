@@ -30,7 +30,7 @@ pipeline {
 
         stage('Sauvegarder les artefacts') {
             steps {
-                archiveArtifacts artifacts: 'models/*.pkl', fingerprint: true
+                archiveArtifacts artifacts: 'kubeflow/work/models/*.pkl', fingerprint: true
             }
         }
 
