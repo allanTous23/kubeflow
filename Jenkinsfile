@@ -35,6 +35,11 @@ pipeline {
         }
     }
 
+        stage('Démarrer les services') {
+        steps {
+            bat 'docker-compose up -d'
+        }
+    }
     post {
         success {
             echo "Pipeline terminé avec succès"
