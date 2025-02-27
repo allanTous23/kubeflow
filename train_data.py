@@ -149,7 +149,7 @@ def plot_results(results):
 
 def save_ann_metrics(metrics, file_name):
     # Créer le chemin du fichier avec le nom fourni
-    file_path = file_name+'metrics.json'
+    file_path = 'metrics.json'
     
     # Vérifie si le fichier existe, sinon il sera créé
     if not os.path.exists(file_path):
