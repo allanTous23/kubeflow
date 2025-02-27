@@ -7,9 +7,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN python train_data.py && \
-    cp house_price_model.pkl /app/house_price_model.pkl && \
-    cp metrics.json /app/metrics.json
+RUN python train_data.py 
 
 CMD ["python", "predict.py"]
 
