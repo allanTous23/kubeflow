@@ -38,12 +38,14 @@ pipeline {
         }
 
         stage('Sauvegarder les artefacts') {
+             steps {
                 script {
                     // S'assurer que les artefacts sont bien stockés dans le répertoire local
                     bat "if exist ${ARTIFACTS_DIR} dir ${ARTIFACTS_DIR} /s"
                 }
                 archiveArtifacts artifacts: "${ARTIFACTS_DIR}/*.pkl", fingerprint: true
                 archiveArtifacts artifacts: "${ARTIFACTS_DIR}/*.json", fingerprint: true
+            }
         }
 
     }
