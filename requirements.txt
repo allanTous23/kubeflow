@@ -1,0 +1,8 @@
+jupyter
+pandas
+numpy
+scikit-learn
+nbconvert
+imbalanced-learn
+tensorflow
+seaborn
