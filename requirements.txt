@@ -1,7 +1,9 @@
-jupyter
-pandas
+flask
 numpy
+pandas
+requests
 scikit-learn
+jupyter
 nbconvert
 imbalanced-learn
 tensorflow
