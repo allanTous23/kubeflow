@@ -26,7 +26,7 @@ pipeline {
         stage('Nettoyer les données') {
             steps {
                 script {
-                    bat "docker run --rm -v %WORKSPACE%/${ARTIFACTS_DIR}:/work ${CLEAN_IMAGE}"
+                    bat "docker run --rm -v ./${ARTIFACTS_DIR}:/work ${CLEAN_IMAGE}"
                 }
             }
         }
