@@ -23,10 +23,10 @@ pipeline {
             }
         }
 
-        stage('Nettoyer les données') {
+        stage('Nettoyer les données et entrainement') {
             steps {
                 script {
-                    bat "docker run --rm -v ./${ARTIFACTS_DIR}:/work ${CLEAN_IMAGE}"
+                    bat "docker run --rm -v ${WORKSPACE}/${ARTIFACTS_DIR}:/work/artefact ${CLEAN_IMAGE}"
                 }
             }
         }

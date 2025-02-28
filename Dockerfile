@@ -20,5 +20,8 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt
 # Convertir le notebook en script Python
 RUN jupyter nbconvert --to script /work/clean_data.ipynb
 
+# Créer le dossier artefacts
+RUN mkdir -p /work/artefact
+
 # Exécuter le script Python
-CMD ["python", "/work/clean_data.py"]
+CMD ["bash", "-c", "python /work/clean_data.py && cp /work/*.pkl /work/*.json /work/artefact/"]
