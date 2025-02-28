@@ -26,7 +26,7 @@ pipeline {
         stage('Nettoyer les données') {
             steps {
                 script {
-                    bat "docker run --rm -v %WORKSPACE%/${ARTIFACTS_DIR}:/app/${ARTIFACTS_DIR} ${CLEAN_IMAGE}"
+                    bat "docker run --rm -v %WORKSPACE%/${ARTIFACTS_DIR}:/work/${ARTIFACTS_DIR} ${CLEAN_IMAGE}"
                 }
             }
         }
@@ -43,8 +43,8 @@ pipeline {
                     // S'assurer que les artefacts sont bien stockés dans le répertoire local
                     bat "if exist ${ARTIFACTS_DIR} dir ${ARTIFACTS_DIR} /s"
                 }
-                archiveArtifacts artifacts: "${ARTIFACTS_DIR}/*.pkl", fingerprint: true
-                archiveArtifacts artifacts: "${ARTIFACTS_DIR}/*.json", fingerprint: true
+                archiveArtifacts artifacts: "**/*.pkl", fingerprint: true
+                archiveArtifacts artifacts: "**/*.json", fingerprint: true
             }
         }
 
